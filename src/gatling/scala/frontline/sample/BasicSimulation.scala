@@ -34,9 +34,9 @@ class BasicSimulation extends Simulation {
 
   val httpProtocol = http
     .enableHttp2
-    .baseUrl(s"https://charge-engine-load-test.private.central-eks.aureacentral.com/nchf-convergedcharging/v3/")
+    .baseUrl(s"https://alb-for-gatling-supp-147400401.us-east-1.elb.amazonaws.com/nchf-convergedcharging/v3/")
     .header("Content-Type", "application/json")
-    .http2PriorKnowledge(Map("charge-engine-load-test.private.central-eks.aureacentral.com" -> true))
+    .http2PriorKnowledge(Map("alb-for-gatling-supp-147400401.us-east-1.elb.amazonaws.com" -> true))
     .shareConnections
 
 
@@ -49,6 +49,6 @@ class BasicSimulation extends Simulation {
     )
 
   setUp(scn.inject(
-    constantConcurrentUsers(1000) during(300.seconds)
+    constantConcurrentUsers(4000) during(300.seconds)
   ).protocols(httpProtocol)).maxDuration(315.seconds)
 }
